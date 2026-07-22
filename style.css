@@ -91,18 +91,6 @@ h1 {
   animation: rise 0.9s ease forwards 0.25s;
 }
 
-h1 .loc {
-  display: block;
-  font-family: "PT Sans", sans-serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.24em;
-  letter-spacing: 0.04em;
-  color: var(--smoke);
-  margin-top: 0.6em;
-  text-shadow: none;
-}
-
 h1 .year {
   display: block;
   font-size: 0.42em;
@@ -241,14 +229,14 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   border-top: 1px solid var(--border-soft);
 }
 .site-footer a {
-  color: var(--flax);
+  color: var(--ember);
   text-decoration: none;
-  border-bottom: 1px solid rgba(232, 192, 125, 0.4);
+  border-bottom: 1px solid rgba(255, 122, 61, 0.4);
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 .site-footer a:hover {
-  color: var(--ember);
-  border-color: var(--ember);
+  color: var(--flax);
+  border-color: var(--flax);
 }
 
 /* ---------- modal ---------- */
