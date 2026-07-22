@@ -16,13 +16,21 @@
 
 html { scroll-behavior: smooth; }
 
+html { background: var(--bg); }
+
 body {
   margin: 0;
-  background: var(--bg);
   color: var(--cream);
   font-family: "PT Sans", sans-serif;
   overflow-x: hidden;
   position: relative;
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg) url("assets/page-bg.jpg") center / cover no-repeat;
 }
 
 /* ---------- grain texture ---------- */
