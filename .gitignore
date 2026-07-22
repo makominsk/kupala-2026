@@ -1,4 +1,6 @@
 videos/
 logs/
 transcode_progress.log
+upload.log
+upload_progress.log
 .DS_Store
