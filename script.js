@@ -7,7 +7,6 @@
   var modal = document.getElementById("modal");
   var modalVideo = document.getElementById("modal-video");
   var modalDownload = document.getElementById("modal-download");
-  var countLabel = document.getElementById("count-label");
 
   function assetUrl(name, ext) {
     return RELEASE_BASE + name + "." + ext;
@@ -38,7 +37,6 @@
   });
 
   function render(names) {
-    countLabel.textContent = names.length;
     var frag = document.createDocumentFragment();
 
     names.forEach(function (name, i) {

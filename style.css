@@ -91,22 +91,24 @@ h1 {
   animation: rise 0.9s ease forwards 0.25s;
 }
 
-h1 span {
+h1 .loc {
+  display: block;
+  font-family: "PT Sans", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.24em;
+  letter-spacing: 0.04em;
+  color: var(--smoke);
+  margin-top: 0.6em;
+  text-shadow: none;
+}
+
+h1 .year {
   display: block;
   font-size: 0.42em;
   color: var(--ember);
   letter-spacing: 0.3em;
-  margin-top: 0.3em;
-}
-
-.subtitle {
-  max-width: 34rem;
-  margin: 2rem auto 0;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: var(--smoke);
-  opacity: 0;
-  animation: rise 0.9s ease forwards 0.45s;
+  margin-top: 0.35em;
 }
 
 @keyframes rise {
@@ -118,7 +120,7 @@ h1 span {
   display: flex;
   justify-content: center;
   gap: 0.6rem;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   opacity: 0;
   animation: rise 0.9s ease forwards 0.65s;
 }
@@ -238,7 +240,16 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   font-size: 0.85rem;
   border-top: 1px solid var(--border-soft);
 }
-.site-footer span { color: var(--flax); }
+.site-footer a {
+  color: var(--flax);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232, 192, 125, 0.4);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.site-footer a:hover {
+  color: var(--ember);
+  border-color: var(--ember);
+}
 
 /* ---------- modal ---------- */
 .modal {
