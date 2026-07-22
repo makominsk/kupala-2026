@@ -39,11 +39,16 @@ body {
 /* ---------- hero ---------- */
 .hero {
   position: relative;
-  padding: 7rem 1.5rem 5rem;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 1.5rem;
   text-align: center;
   overflow: hidden;
   background: var(--bg);
 }
+
+.hero-inner { width: 100%; }
 
 .hero-photo {
   position: absolute;
@@ -61,24 +66,6 @@ body {
   background:
     radial-gradient(ellipse 48% 40% at 50% 48%, rgba(18, 13, 10, 0.6), transparent 72%),
     linear-gradient(180deg, rgba(18, 13, 10, 0.22) 0%, rgba(18, 13, 10, 0.3) 45%, var(--bg) 100%);
-}
-
-.hero-glow {
-  position: absolute;
-  left: 50%;
-  top: -10%;
-  width: 700px;
-  height: 700px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(255, 122, 61, 0.22) 0%, transparent 65%);
-  filter: blur(10px);
-  animation: flicker 6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes flicker {
-  0%, 100% { opacity: 0.85; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
 }
 
 .hero-inner { position: relative; z-index: 1; }
