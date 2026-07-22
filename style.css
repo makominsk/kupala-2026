@@ -323,6 +323,14 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
 }
 .modal-close:hover { background: rgba(255,255,255,0.08); }
 
+.modal-error-hint {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--smoke);
+  text-align: center;
+  max-width: 26rem;
+}
+
 .download-btn {
   margin-top: 1.3rem;
   display: inline-flex;

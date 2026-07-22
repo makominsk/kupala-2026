@@ -13,7 +13,11 @@
   }
 
   function openModal(name) {
+    var hint = modal.querySelector(".modal-error-hint");
+    if (hint) hint.remove();
+    modalVideo.poster = "posters/" + name + ".jpg";
     modalVideo.src = assetUrl(name, "mp4");
+    modalVideo.load();
     modalDownload.href = assetUrl(name, "mp4");
     modalDownload.setAttribute("download", name + ".mp4");
     modal.hidden = false;
@@ -26,8 +30,20 @@
     document.body.style.overflow = "";
     modalVideo.pause();
     modalVideo.removeAttribute("src");
+    modalVideo.removeAttribute("poster");
     modalVideo.load();
   }
+
+  modalVideo.addEventListener("error", function () {
+    if (modal.hidden) return;
+    var hint = modal.querySelector(".modal-error-hint");
+    if (!hint) {
+      hint = document.createElement("p");
+      hint.className = "modal-error-hint";
+      hint.textContent = "Не получилось загрузить видео для просмотра. Попробуйте скачать файл кнопкой ниже.";
+      modalDownload.insertAdjacentElement("beforebegin", hint);
+    }
+  });
 
   modal.addEventListener("click", function (e) {
     if (e.target.hasAttribute("data-close")) closeModal();
