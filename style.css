@@ -260,45 +260,46 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   pointer-events: none;
 }
 
-/* Панель-рамка из орнаментального фона: фото ложится в тёмный центр,
-   а узор (папоротники, цветы, ромбы по дальним углам) обрамляет его. */
+/* Портретная панель-рамка из орнаментального фона: узор растянут по всем
+   4 сторонам, фото по центру с тонкой золотой кромкой. */
 .closing-ornament {
   position: relative;
   z-index: 1;
-  width: min(96vw, 720px);
+  width: min(94vw, 560px);
   margin: 0 auto;
-  aspect-ratio: 1672 / 941;
+  aspect-ratio: 1588 / 1978;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* сам орнамент — поярче, с мягко гаснущими к фону краями */
+/* орнамент растягиваем на всю панель — узор виден со всех сторон, поярче */
 .closing-ornament::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 10px;
-  background: url("assets/page-bg.jpg") center / cover no-repeat;
-  filter: brightness(1.7) saturate(1.3) contrast(1.03);
-  -webkit-mask-image: radial-gradient(ellipse 102% 104% at 50% 50%, #000 55%, transparent 94%);
-  mask-image: radial-gradient(ellipse 102% 104% at 50% 50%, #000 55%, transparent 94%);
+  border-radius: 6px;
+  background: url("assets/page-bg.jpg") center / 100% 100% no-repeat;
+  filter: brightness(1.65) saturate(1.28) contrast(1.03);
+  /* мягко гасим самый внешний край панели в фон страницы */
+  -webkit-mask-image: radial-gradient(ellipse 112% 108% at 50% 50%, #000 66%, transparent 100%);
+  mask-image: radial-gradient(ellipse 112% 108% at 50% 50%, #000 66%, transparent 100%);
 }
 
 .closing-ornament img {
   position: relative;
   z-index: 1;
-  height: 84%;
-  width: auto;
-  max-width: 52%;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 16px 40px -10px rgba(0, 0, 0, 0.72);
+  width: 74%;
+  height: auto;
+  border-radius: 2px;
+  /* тонкая золотая линия-кромка по краю фото, как в макете */
+  border: 2px solid rgba(200, 152, 78, 0.92);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 14px 38px -10px rgba(0, 0, 0, 0.72);
 }
 
 @media (max-width: 640px) {
-  .closing-ornament img { height: 80%; max-width: 60%; }
+  .closing-ornament img { width: 76%; }
 }
 
 .closing-divider {
