@@ -20,6 +20,15 @@
     return RELEASE_BASE + name + ".mp4";
   }
 
+  // Учёт события в GoatCounter (безопасно: если счётчик не загружен — тихо выходим)
+  function track(path, title) {
+    try {
+      if (window.goatcounter && typeof window.goatcounter.count === "function") {
+        window.goatcounter.count({ path: path, title: title, event: true });
+      }
+    } catch (e) {}
+  }
+
   function showVideo(index) {
     if (!names.length) return;
     // зациклено по кругу
@@ -35,6 +44,7 @@
     modalDownload.href = downloadUrl(name);
     modalDownload.setAttribute("download", name + ".mp4");
     if (modalCounter) modalCounter.textContent = (current + 1) + " / " + names.length;
+    track("watch/" + name, "Просмотр " + name);
     modalVideo.play().catch(function () {});
   }
 
@@ -73,6 +83,11 @@
     if (t.closest("[data-close]")) { closeModal(); return; }
     if (t.closest(".modal-nav-next")) { nextVideo(); return; }
     if (t.closest(".modal-nav-prev")) { prevVideo(); return; }
+  });
+
+  // Учёт скачиваний
+  modalDownload.addEventListener("click", function () {
+    if (current >= 0 && names[current]) track("download/" + names[current], "Скачивание " + names[current]);
   });
 
   // Клавиатура: Esc — закрыть, стрелки — листать
