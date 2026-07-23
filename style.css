@@ -243,29 +243,46 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   padding: 4rem 1.25rem 1rem;
 }
 
-.closing-photo {
-  position: relative;
-  display: inline-block;
-  max-width: min(90vw, 440px);
-}
+.closing { position: relative; }
 
 /* мягкое тёплое сияние позади — связывает фото с золотым орнаментом фона */
-.closing-photo::before {
+.closing::before {
   content: "";
   position: absolute;
-  inset: -10%;
-  z-index: -1;
-  background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255, 122, 61, 0.16), transparent 72%);
-  filter: blur(6px);
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 470px);
+  height: 74%;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 122, 61, 0.15), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.closing-photo {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  max-width: min(90vw, 440px);
+  /* края растворяются в тёмном орнаменте фона, без жёсткой рамки */
+  -webkit-mask-image: radial-gradient(ellipse 98% 98% at 50% 47%, #000 32%, rgba(0,0,0,0.5) 62%, transparent 90%);
+  mask-image: radial-gradient(ellipse 98% 98% at 50% 47%, #000 32%, rgba(0,0,0,0.5) 62%, transparent 90%);
 }
 
 .closing-photo img {
   display: block;
   width: 100%;
   height: auto;
-  /* края растворяются в тёмном орнаменте фона, без жёсткой рамки */
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 47%, #000 58%, rgba(0,0,0,0.5) 80%, transparent 100%);
-  mask-image: radial-gradient(ellipse 100% 100% at 50% 47%, #000 58%, rgba(0,0,0,0.5) 80%, transparent 100%);
+}
+
+/* внутреннее затемнение краёв — даже светлые участки уходят в тон фона */
+.closing-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 82% 84% at 50% 47%, transparent 36%, rgba(18, 13, 10, 0.92) 86%);
 }
 
 .closing-divider {
