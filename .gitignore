@@ -3,4 +3,5 @@ logs/
 transcode_progress.log
 upload.log
 upload_progress.log
+web_progress.log
 .DS_Store

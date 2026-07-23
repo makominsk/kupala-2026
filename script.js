@@ -1,24 +1,28 @@
 (function () {
   "use strict";
 
+  // Полноразмерные оригиналы для скачивания — на GitHub Release.
   var RELEASE_BASE = "https://github.com/makominsk/kupala-2026/releases/download/v1/";
+  // Лёгкие копии для встроенного просмотра — с самого GitHub Pages
+  // (отдаётся с Content-Type: video/mp4 и без attachment, поэтому играет в Safari/iOS).
+  var WEB_BASE = "web/";
 
   var gallery = document.getElementById("gallery");
   var modal = document.getElementById("modal");
   var modalVideo = document.getElementById("modal-video");
   var modalDownload = document.getElementById("modal-download");
 
-  function assetUrl(name, ext) {
-    return RELEASE_BASE + name + "." + ext;
+  function downloadUrl(name) {
+    return RELEASE_BASE + name + ".mp4";
   }
 
   function openModal(name) {
     var hint = modal.querySelector(".modal-error-hint");
     if (hint) hint.remove();
     modalVideo.poster = "posters/" + name + ".jpg";
-    modalVideo.src = assetUrl(name, "mp4");
+    modalVideo.src = WEB_BASE + name + ".mp4";
     modalVideo.load();
-    modalDownload.href = assetUrl(name, "mp4");
+    modalDownload.href = downloadUrl(name);
     modalDownload.setAttribute("download", name + ".mp4");
     modal.hidden = false;
     document.body.style.overflow = "hidden";
