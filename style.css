@@ -243,45 +243,30 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   padding: 4rem 1.25rem 1rem;
 }
 
-.closing-frame {
+.closing-photo {
   position: relative;
   display: inline-block;
-  max-width: min(88vw, 430px);
-  padding: 14px;
-  border-radius: 6px;
-  background:
-    linear-gradient(135deg, rgba(232,192,125,0.14), rgba(255,122,61,0.10)),
-    var(--bg-alt);
-  border: 1.5px solid rgba(232, 192, 125, 0.55);
-  outline: 1px solid rgba(232, 192, 125, 0.25);
-  outline-offset: 5px;
-  box-shadow:
-    0 0 0 6px rgba(18, 13, 10, 0.55),
-    0 24px 60px -18px rgba(0, 0, 0, 0.75),
-    0 0 70px -10px rgba(255, 122, 61, 0.28);
+  max-width: min(90vw, 440px);
 }
 
-.closing-frame img {
+/* мягкое тёплое сияние позади — связывает фото с золотым орнаментом фона */
+.closing-photo::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255, 122, 61, 0.16), transparent 72%);
+  filter: blur(6px);
+}
+
+.closing-photo img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 3px;
+  /* края растворяются в тёмном орнаменте фона, без жёсткой рамки */
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 47%, #000 58%, rgba(0,0,0,0.5) 80%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 47%, #000 58%, rgba(0,0,0,0.5) 80%, transparent 100%);
 }
-
-/* угловые ромбы — перекликаются с орнаментом фона и разделителем шапки */
-.closing-corner {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: var(--flax);
-  transform: rotate(45deg);
-  box-shadow: 0 0 10px rgba(232, 192, 125, 0.6);
-  z-index: 2;
-}
-.closing-corner.tl { top: -7px; left: -7px; }
-.closing-corner.tr { top: -7px; right: -7px; }
-.closing-corner.bl { bottom: -7px; left: -7px; }
-.closing-corner.br { bottom: -7px; right: -7px; }
 
 .closing-divider {
   display: flex;
