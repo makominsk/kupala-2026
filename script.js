@@ -11,22 +11,37 @@
   var modal = document.getElementById("modal");
   var modalVideo = document.getElementById("modal-video");
   var modalDownload = document.getElementById("modal-download");
+  var modalCounter = document.getElementById("modal-counter");
+
+  var names = [];
+  var current = -1;
 
   function downloadUrl(name) {
     return RELEASE_BASE + name + ".mp4";
   }
 
-  function openModal(name) {
+  function showVideo(index) {
+    if (!names.length) return;
+    // зациклено по кругу
+    current = (index + names.length) % names.length;
+    var name = names[current];
+
     var hint = modal.querySelector(".modal-error-hint");
     if (hint) hint.remove();
+
     modalVideo.poster = "posters/" + name + ".jpg";
     modalVideo.src = WEB_BASE + name + ".mp4";
     modalVideo.load();
     modalDownload.href = downloadUrl(name);
     modalDownload.setAttribute("download", name + ".mp4");
+    if (modalCounter) modalCounter.textContent = (current + 1) + " / " + names.length;
+    modalVideo.play().catch(function () {});
+  }
+
+  function openModal(index) {
     modal.hidden = false;
     document.body.style.overflow = "hidden";
-    modalVideo.play().catch(function () {});
+    showVideo(index);
   }
 
   function closeModal() {
@@ -37,6 +52,9 @@
     modalVideo.removeAttribute("poster");
     modalVideo.load();
   }
+
+  function nextVideo() { showVideo(current + 1); }
+  function prevVideo() { showVideo(current - 1); }
 
   modalVideo.addEventListener("error", function () {
     if (modal.hidden) return;
@@ -49,17 +67,45 @@
     }
   });
 
+  // Клики: закрытие по фону/крестику, стрелки-кнопки
   modal.addEventListener("click", function (e) {
-    if (e.target.hasAttribute("data-close")) closeModal();
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modal.hidden) closeModal();
+    var t = e.target;
+    if (t.closest("[data-close]")) { closeModal(); return; }
+    if (t.closest(".modal-nav-next")) { nextVideo(); return; }
+    if (t.closest(".modal-nav-prev")) { prevVideo(); return; }
   });
 
-  function render(names) {
+  // Клавиатура: Esc — закрыть, стрелки — листать
+  document.addEventListener("keydown", function (e) {
+    if (modal.hidden) return;
+    if (e.key === "Escape") closeModal();
+    else if (e.key === "ArrowRight") { e.preventDefault(); nextVideo(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); prevVideo(); }
+  });
+
+  // Свайп влево/вправо для листания (не закрывает окно)
+  var touchX = null, touchY = null;
+  modal.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1) { touchX = null; return; }
+    touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+  }, { passive: true });
+  modal.addEventListener("touchend", function (e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    var dy = e.changedTouches[0].clientY - touchY;
+    touchX = null;
+    // горизонтальный жест заметно длиннее вертикального
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (dx < 0) nextVideo(); else prevVideo();
+    }
+  }, { passive: true });
+
+  function render(list) {
+    names = list;
     var frag = document.createDocumentFragment();
 
-    names.forEach(function (name, i) {
+    list.forEach(function (name, i) {
       var card = document.createElement("div");
       card.className = "card";
       card.tabIndex = 0;
@@ -84,11 +130,11 @@
       tag.textContent = "№ " + String(i + 1).padStart(2, "0");
       card.appendChild(tag);
 
-      card.addEventListener("click", function () { openModal(name); });
+      card.addEventListener("click", function () { openModal(i); });
       card.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          openModal(name);
+          openModal(i);
         }
       });
 

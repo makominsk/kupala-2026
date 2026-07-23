@@ -41,9 +41,12 @@
 <div class="modal" id="modal" hidden>
   <div class="modal-backdrop" data-close></div>
   <div class="modal-shell">
-    <button class="modal-close" data-close aria-label="Закрыть">✕</button>
     <div class="modal-video-wrap">
       <video id="modal-video" controls playsinline preload="metadata"></video>
+      <button class="modal-close" data-close aria-label="Закрыть">✕</button>
+      <span class="modal-counter" id="modal-counter"></span>
+      <button class="modal-nav modal-nav-prev" aria-label="Предыдущее видео">‹</button>
+      <button class="modal-nav modal-nav-next" aria-label="Следующее видео">›</button>
     </div>
     <a id="modal-download" class="download-btn" download>
       <span class="download-btn-label">Скачать оригинал</span>
