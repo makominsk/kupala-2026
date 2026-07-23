@@ -260,29 +260,45 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   pointer-events: none;
 }
 
-.closing-photo {
+/* Панель-рамка из орнаментального фона: фото ложится в тёмный центр,
+   а узор (папоротники, цветы, ромбы по дальним углам) обрамляет его. */
+.closing-ornament {
   position: relative;
   z-index: 1;
-  display: inline-block;
-  max-width: min(90vw, 440px);
-  /* края растворяются в тёмном орнаменте фона, без жёсткой рамки */
-  -webkit-mask-image: radial-gradient(ellipse 98% 98% at 50% 47%, #000 32%, rgba(0,0,0,0.5) 62%, transparent 90%);
-  mask-image: radial-gradient(ellipse 98% 98% at 50% 47%, #000 32%, rgba(0,0,0,0.5) 62%, transparent 90%);
+  width: min(96vw, 720px);
+  margin: 0 auto;
+  aspect-ratio: 1672 / 941;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.closing-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* внутреннее затемнение краёв — даже светлые участки уходят в тон фона */
-.closing-photo::after {
+/* сам орнамент — поярче, с мягко гаснущими к фону краями */
+.closing-ornament::before {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 82% 84% at 50% 47%, transparent 36%, rgba(18, 13, 10, 0.92) 86%);
+  z-index: 0;
+  border-radius: 10px;
+  background: url("assets/page-bg.jpg") center / cover no-repeat;
+  filter: brightness(1.7) saturate(1.3) contrast(1.03);
+  -webkit-mask-image: radial-gradient(ellipse 102% 104% at 50% 50%, #000 55%, transparent 94%);
+  mask-image: radial-gradient(ellipse 102% 104% at 50% 50%, #000 55%, transparent 94%);
+}
+
+.closing-ornament img {
+  position: relative;
+  z-index: 1;
+  height: 84%;
+  width: auto;
+  max-width: 52%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 16px 40px -10px rgba(0, 0, 0, 0.72);
+}
+
+@media (max-width: 640px) {
+  .closing-ornament img { height: 80%; max-width: 60%; }
 }
 
 .closing-divider {
