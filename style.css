@@ -237,13 +237,78 @@ main { max-width: 1400px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   margin-left: 3px;
 }
 
+/* ---------- завершающее фото в орнаментальной рамке ---------- */
+.closing {
+  text-align: center;
+  padding: 4rem 1.25rem 1rem;
+}
+
+.closing-frame {
+  position: relative;
+  display: inline-block;
+  max-width: min(88vw, 430px);
+  padding: 14px;
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(232,192,125,0.14), rgba(255,122,61,0.10)),
+    var(--bg-alt);
+  border: 1.5px solid rgba(232, 192, 125, 0.55);
+  outline: 1px solid rgba(232, 192, 125, 0.25);
+  outline-offset: 5px;
+  box-shadow:
+    0 0 0 6px rgba(18, 13, 10, 0.55),
+    0 24px 60px -18px rgba(0, 0, 0, 0.75),
+    0 0 70px -10px rgba(255, 122, 61, 0.28);
+}
+
+.closing-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+/* угловые ромбы — перекликаются с орнаментом фона и разделителем шапки */
+.closing-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--flax);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(232, 192, 125, 0.6);
+  z-index: 2;
+}
+.closing-corner.tl { top: -7px; left: -7px; }
+.closing-corner.tr { top: -7px; right: -7px; }
+.closing-corner.bl { bottom: -7px; left: -7px; }
+.closing-corner.br { bottom: -7px; right: -7px; }
+
+.closing-divider {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2.2rem;
+}
+.closing-divider span {
+  width: 9px;
+  height: 9px;
+  background: var(--ember-deep);
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+.closing-divider span:nth-child(4) { background: var(--flax); opacity: 1; width: 12px; height: 12px; }
+.closing-divider span:nth-child(2), .closing-divider span:nth-child(6) { background: var(--cornflower-deep); }
+
 /* ---------- footer ---------- */
 .site-footer {
   text-align: center;
-  padding: 3rem 1rem 4rem;
-  color: var(--smoke);
-  font-size: 0.85rem;
-  border-top: 1px solid var(--border-soft);
+  padding: 2rem 1rem 4rem;
+  color: var(--cream);
+  font-size: clamp(1.05rem, 3vw, 1.5rem);
+  line-height: 1.45;
+  max-width: 30rem;
+  margin: 0 auto;
+  border-top: none;
 }
 .site-footer a {
   color: var(--ember);
